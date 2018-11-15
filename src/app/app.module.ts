@@ -10,7 +10,11 @@ import { TimeEntryComponent } from './time-entry/time-entry.component';
 import { EntryEditComponent } from './time-entry/entry-edit/entry-edit.component';
 import { HeaderComponent } from './header/header.component';
 import { UserService } from './service/user.service';
+import { TimeEntryService } from './service/time-entry.service';
 import { AppRoutingModule } from './app-routing.module';
+import { EntryItemComponent } from './time-entry/entry-item/entry-item.component';
+import { EntryListComponent } from './time-entry/entry-list/entry-list.component';
+import { EntryStartComponent } from './time-entry/entry-start/entry-start.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,10 @@ import { AppRoutingModule } from './app-routing.module';
     OverviewComponent,
     ProjectComponent,
     EntryEditComponent,
-    HeaderComponent
+    HeaderComponent,
+    EntryItemComponent,
+    EntryListComponent,
+    EntryStartComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +36,7 @@ import { AppRoutingModule } from './app-routing.module';
     HttpModule
 
   ],
-  providers: [ UserService],
+  providers: [ UserService, TimeEntryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
