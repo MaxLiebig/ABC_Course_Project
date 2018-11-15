@@ -7,9 +7,9 @@ export class TimeEntry {
     public description: string;
     public entryDate: Date;
 
-    public duration: string; // custom format needed
+    public duration: number; // custom format needed
 
-    constructor(fromTime: Time, toTime:Time, projectName: string, description: string, entryDate: Date, duration: string){
+    constructor(fromTime: Time, toTime:Time, projectName: string, description: string, entryDate: Date, duration: number){
         this.fromTime = fromTime;
         this.toTime = toTime;
         this.projectName = projectName;

@@ -11,7 +11,7 @@ const appRoutes: Routes = [
     { path: 'overview', component: OverviewComponent },
     { path: 'time-entry', component: TimeEntryComponent, children: [
         { path: '', component: EntryStartComponent},
-        { path: ':id/edit', component: EntryEditComponent },
+        { path: ':id', component: EntryEditComponent },
         { path: 'new', component: EntryEditComponent },
     ] },
     { path: 'project', component: ProjectComponent},

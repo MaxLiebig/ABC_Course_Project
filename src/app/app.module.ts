@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { EntryItemComponent } from './time-entry/entry-item/entry-item.component';
 import { EntryListComponent } from './time-entry/entry-list/entry-list.component';
 import { EntryStartComponent } from './time-entry/entry-start/entry-start.component';
+import { FormatterService } from './service/formatter.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { EntryStartComponent } from './time-entry/entry-start/entry-start.compon
     HttpModule
 
   ],
-  providers: [ UserService, TimeEntryService],
+  providers: [ UserService, TimeEntryService, FormatterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
