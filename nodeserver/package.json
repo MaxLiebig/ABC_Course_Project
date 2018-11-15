@@ -1,0 +1,22 @@
+{
+  "scripts": {
+    "start": "node index.js",
+    "test": ""
+  },
+  "name": "nodeserver",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "connect": "^3.6.6",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "node-restful": "^0.2.6"
+  },
+  "devDependencies": {
+    "mongoose": "~4",
+    "@types/js-base64": "^2.3.1",
+    "sections": "^1.0.0",
+    "strict-loader": "^1.2.0"
+  }
+}
