@@ -2,9 +2,9 @@ import { User } from "../models/user.model";
 
 export class UserService{
 
-    currentUserName: String='Max';
+    currentUserName: string='Max';
 
-    userList: User[];
+    userList: User[] = [];
 
     getUsers(){
         //http
@@ -12,7 +12,8 @@ export class UserService{
 
     getCurrentUser(){
         this.getUsers();
-        let ret = null;
+        debugger;
+        let ret = new User(this.currentUserName);
         for( let usr  of this.userList){
             if(usr && usr.name === this.currentUserName){
                 ret = usr;
