@@ -12,7 +12,6 @@ export class UserService{
 
     getCurrentUser(){
         this.getUsers();
-        debugger;
         let ret = new User(this.currentUserName);
         for( let usr  of this.userList){
             if(usr && usr.name === this.currentUserName){
