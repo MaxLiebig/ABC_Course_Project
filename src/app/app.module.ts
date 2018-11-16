@@ -16,6 +16,7 @@ import { EntryItemComponent } from './time-entry/entry-item/entry-item.component
 import { EntryListComponent } from './time-entry/entry-list/entry-list.component';
 import { EntryStartComponent } from './time-entry/entry-start/entry-start.component';
 import { FormatterService } from './service/formatter.service';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -34,8 +35,8 @@ import { FormatterService } from './service/formatter.service';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule
-
+    HttpModule,
+    NgbModule
   ],
   providers: [ UserService, TimeEntryService, FormatterService],
   bootstrap: [AppComponent]
