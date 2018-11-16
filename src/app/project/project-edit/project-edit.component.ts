@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, AfterContentInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ProjectService } from 'src/app/service/project.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -13,7 +13,6 @@ export class ProjectEditComponent implements OnInit{
   @Input('id') projectID: number;
   @Input('project') project: Project;
   isUpdated: boolean;
-  subscription: Subscription;
 
   constructor(private projectService: ProjectService) { }
 
@@ -28,7 +27,6 @@ export class ProjectEditComponent implements OnInit{
            });
         }, 100);
       }
-
   }  
 
   onSubmit(form) {
@@ -39,4 +37,6 @@ export class ProjectEditComponent implements OnInit{
       this.projectService.updateProject(this.projectID, form.value);
     }
   }
+
+
 }
