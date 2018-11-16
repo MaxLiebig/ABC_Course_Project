@@ -11,6 +11,8 @@ export class EntryItemComponent implements OnInit {
   @Input() entry: TimeEntry;
   @Input() index: number;
 
+  dateString: string;
+
   fromTimeString: string;
   toTimeString: string;
   duration: number;
@@ -20,7 +22,9 @@ export class EntryItemComponent implements OnInit {
   ngOnInit() {
     this.fromTimeString = this.formatter.convertTimeToString(this.entry['fromTime']);
     this.toTimeString = this.formatter.convertTimeToString(this.entry['toTime']);
-    this.duration = this.formatter.calculateTimesToDuration(this.entry['fromTime'],this.entry['toTime']);
+    this.duration = this.entry.duration;
+
+    this.dateString = this.entry.entryDate.toDateString();
   }
 
 }

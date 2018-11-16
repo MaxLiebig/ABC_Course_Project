@@ -25,7 +25,7 @@ export class EntryEditComponent implements OnInit, OnDestroy {
   
   currentDateString = new Date().toISOString();
 
-  description = '';
+  //description = '';
 
   projects: Project[] = [];
   selectedProject: Project;
@@ -75,6 +75,9 @@ export class EntryEditComponent implements OnInit, OnDestroy {
     this.id = null;
     this.editMode = false;
     form.reset();
+    this.fromTime = {hour: 8, minute: 0, second: 0};
+    this.toTime = {hour: 17, minute: 0, second: 0};
+    this.updateDuration();
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 
@@ -91,13 +94,29 @@ export class EntryEditComponent implements OnInit, OnDestroy {
       this.fromTime = {hour: timeEntry.fromTime.hours, minute: timeEntry.fromTime.minutes, second: 0};
       this.toTime = {hour: timeEntry.toTime.hours, minute: timeEntry.toTime.minutes, second: 0};
       this.duration = timeEntry.duration;
-      this.currentDateString = timeEntry.entryDate.toISOString();
+      this.currentDateString = timeEntry.entryDate.getFullYear()+'-'+(timeEntry.entryDate.getMonth()+1)+"-"+timeEntry.entryDate.getDate();
+      console.log("entry form",this.timeEntryForm);
+      setTimeout( () => {
+        this.timeEntryForm.setValue({
+          description: timeEntry.description,
+          entryDate: this.currentDateString
+        });
+      }
+      , 100);
       //TODO add preselection to selected Project
       //"entryDate": timeEntry.entryDate.toISOString(),
 
     }else{
-      //TODO add preselection to selected Project
+      this.fromTime = {hour: 8, minute: 0, second: 0};
+      this.toTime = {hour: 17, minute: 0, second: 0};
       this.updateDuration();
+      setTimeout( () => {
+        this.timeEntryForm.setValue({
+          description: '',
+          entryDate: ''
+        });
+      }
+      , 100);
     }
   }
 
