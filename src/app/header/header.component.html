@@ -1,12 +1,16 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
+            <div class="row">
           <a routerLink="/" class="navbar-brand">ABC Course Project</a>
-        </div>
-        <div class="collapse navbar-collapse">
+            <ul>
+                <li routerLinkActive="active"><a routerLink="/project">Projekte</a></li>
+                <li routerLinkActive="active"><a routerLink="/time-entry">Buchung</a></li>
+            </ul>
             <ul class="nav navbar-nav">
               <li>{{username}}</li>
             </ul>
+            </div>
         </div>
     </div>
 </nav>

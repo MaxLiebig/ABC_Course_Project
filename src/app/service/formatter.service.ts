@@ -1,4 +1,5 @@
 import { Time } from "@angular/common";
+import { NgbTimeStruct } from "@ng-bootstrap/ng-bootstrap";
 
 export class FormatterService{
 
@@ -8,6 +9,10 @@ export class FormatterService{
             minutes= '0' + minutes;
         }
         return inputTime['hours'] + ':' + minutes;
+    }
+
+    convertNgbTimeStructToTime(input: NgbTimeStruct): Time{
+        return {hours: input.hour, minutes: input.minute};
     }
 
     calculateTimesToDuration(fromTime: Time, toTime: Time){
