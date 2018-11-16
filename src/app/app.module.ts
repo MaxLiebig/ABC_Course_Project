@@ -13,7 +13,6 @@ import { UserService } from './service/user.service';
 import { TimeEntryService } from './service/time-entry.service';
 import { AppRoutingModule } from './app-routing.module';
 import { ProjectEditComponent } from './project/project-edit/project-edit.component';
-import { UserService } from './service/user.service';
 import { ProjectService } from './service/project.service';
 import { EntryItemComponent } from './time-entry/entry-item/entry-item.component';
 import { EntryListComponent } from './time-entry/entry-list/entry-list.component';
