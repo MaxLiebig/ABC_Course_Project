@@ -1,0 +1,9 @@
+<div >
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm" ngForm>
+    <input id="name" class="form-control" placeholder="Project Name" ngModel="name" name="name" required #name="ngModel">
+    <input id="description" class="form-control" placeholder="Project Description" ngModel="description" name="description">
+    <br>
+    <p *ngIf="!name.valid && name.touched"> User Data is invalid</p>
+    <button type="submit">Create</button>
+  </form>
+</div>

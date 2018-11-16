@@ -1,3 +1,19 @@
-<p>
-  project works!
-</p>
+<div class="row">
+  <div class="col-xs-10">
+    <h3>Projects</h3>
+    <button class="btn btn-primary" (click)="onCreate()" >New Project</button>
+    <hr>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let projectEl of projects; let i = index">
+        {{ projectEl.name }} - {{ projectEl.description }}
+        <button class="btn btn-success" (click)="onUpdate(i)">Update</button>
+        <button class="btn btn-danger" (click)="onDelete(i)">Delete</button>
+      </li>
+    </ul>
+    <div *ngIf="isAdded">
+      <!--[ngClass]="{disabled: !isAdded}"-->
+      <app-project-edit [id]="projectID" [project]="projects[index]"></app-project-edit>
+    </div>
+
+  </div>
+</div>
