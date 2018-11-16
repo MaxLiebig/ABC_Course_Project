@@ -13,6 +13,10 @@ export class ProjectService {
     addProject(project: Project) {
         this.projects.push(project);
     }
+
+    getProjectList() {
+        return this.projects;
+    }
     
     deleteProject(id: number) {
         this.projects.splice(id, 1);
