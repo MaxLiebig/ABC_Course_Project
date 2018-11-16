@@ -18,7 +18,7 @@ import { ProjectService } from 'src/app/service/project.service';
 export class EntryEditComponent implements OnInit, OnDestroy {
   id: number;
   editMode = false;
-  @ViewChild('timeForm') timeEntryForm: NgForm;
+  //@ViewChild('timeForm') timeEntryForm: NgForm;
   
   fromTime: NgbTimeStruct = {hour: 8, minute: 0, second: 0};
   toTime: NgbTimeStruct = {hour: 17, minute: 0, second: 0};
@@ -26,7 +26,8 @@ export class EntryEditComponent implements OnInit, OnDestroy {
   
   currentDateString = new Date().toISOString();
 
-  //description = '';
+  description = '';
+  entryDate='';
 
   projects: Project[] = [];
   selectedProject: Project;
@@ -51,16 +52,15 @@ export class EntryEditComponent implements OnInit, OnDestroy {
   }
 
   setSelectedProject(event){
-    debugger;
     console.log("event", event);
   }
 
-  onSubmit(form: NgForm) {
+  onSubmit() {
     let newFromTime:Time = {hours: this.fromTime.hour, minutes: this.fromTime.minute};
     let newToTime:Time = {hours: this.toTime.hour, minutes: this.toTime.minute};
 
     let newProject = ( this.selectedProject && this.selectedProject['name']) ? this.selectedProject['name'] : 'K-123';
-    let newDescription= (form.value['description']) ? form.value.description : '';
+    let newDescription= (this.description) ? this.description : '';
     let newDuration = this.formatter.calculateTimesToDuration(newFromTime, newToTime);
     let entryDate = new Date();
 
@@ -72,13 +72,13 @@ export class EntryEditComponent implements OnInit, OnDestroy {
     } else {
       this.timeEntryService.addTimeEntry(newTimeEntry);
     }
-    this.onCancel(form);
+    this.onCancel();
   }
 
-  onCancel(form: NgForm) {
+  onCancel() {
     this.id = null;
     this.editMode = false;
-    form.reset();
+    //form.reset();
     this.fromTime = {hour: 8, minute: 0, second: 0};
     this.toTime = {hour: 17, minute: 0, second: 0};
     this.updateDuration();
@@ -102,32 +102,35 @@ export class EntryEditComponent implements OnInit, OnDestroy {
       this.fromTime = {hour: timeEntry.fromTime.hours, minute: timeEntry.fromTime.minutes, second: 0};
       this.toTime = {hour: timeEntry.toTime.hours, minute: timeEntry.toTime.minutes, second: 0};
       this.duration = timeEntry.duration;
-      this.currentDateString = timeEntry.entryDate.getFullYear()+'-'+(timeEntry.entryDate.getMonth()+1)+"-"+timeEntry.entryDate.getDate();
-      console.log("entry form",this.timeEntryForm);
+      //this.entryDate = timeEntry.entryDate.getFullYear()+'-'+(timeEntry.entryDate.getMonth()+1)+"-"+timeEntry.entryDate.getDate();
+      this.entryDate = this.formatter.convertDateToInputString(timeEntry.entryDate);
+      //console.log("entry form",this.timeEntryForm);
       let entryProject = this.projectService.getProjectByName(timeEntry['projectName']);
       if(entryProject){
-        debugger;
         this.selectedProject = entryProject;
       }
-      setTimeout( () => {
+      this.description=timeEntry.description;
+   /*   setTimeout( () => {
         this.timeEntryForm.setValue({
           description: timeEntry.description,
           entryDate: this.currentDateString
         });
       }
-      , 100);
+      , 100);*/
 
     }else{
       this.fromTime = {hour: 8, minute: 0, second: 0};
       this.toTime = {hour: 17, minute: 0, second: 0};
       this.updateDuration();
-      setTimeout( () => {
+      this.description='';
+      this.entryDate = this.formatter.convertDateToInputString(new Date());
+  /*    setTimeout( () => {
         this.timeEntryForm.setValue({
           description: '',
           entryDate: ''
         });
       }
-      , 100);
+      , 100);*/
     }
   }
 

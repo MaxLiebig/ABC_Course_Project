@@ -15,6 +15,10 @@ export class FormatterService{
         return {hours: input.hour, minutes: input.minute};
     }
 
+    convertDateToInputString(date: Date){
+        return date.getFullYear()+'-'+(date.getMonth()+1)+"-"+date.getDate()
+    }
+
     calculateTimesToDuration(fromTime: Time, toTime: Time){
         const timeslot = 4;
         let difHours = Math.abs(toTime.hours - fromTime.hours);
