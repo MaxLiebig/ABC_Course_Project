@@ -4,12 +4,12 @@ import { EventEmitter, Output } from "@angular/core";
 import { map, switchMap, catchError, mergeMap } from 'rxjs/operators';
 
 export class ProjectService {
-    private subject = new Subject<number>();
     isAdded = false;
     projects: Project[] = [
         new Project('K-123123', 'new test project'),
         new Project('K-123456', 'another test project')
     ];
+    changedForm = new Subject<boolean>();
 
     addProject(project: Project) {
         this.projects.push(project);
@@ -29,7 +29,7 @@ export class ProjectService {
         }
         return ret;
     }
-    
+
     deleteProject(id: number) {
         this.projects.splice(id, 1);
     }
@@ -40,5 +40,10 @@ export class ProjectService {
 
     toggleProjectCreate() {
       this.isAdded = !this.isAdded;
+      this.changedForm.next(this.isAdded);
+    }
+
+    getChangedForm(): Observable<boolean> {
+        return this.changedForm.asObservable();
     }
 }
