@@ -1,3 +1,41 @@
-<p>
-  entry-edit works!
-</p>
+<div class="row">
+  <div class="col-md-12">
+    <form (ngSubmit)="onSubmit(timeForm)" #timeForm="ngForm">
+      <div class="form-group">
+        <label for="projectName">Project Name</label>
+        <!--<select id="projectName" class="form-control">
+          <option *ngFor="let project from projects; let i = index"
+            [value]="project" 
+          >{{project}}</option>
+        </select>-->
+      </div>
+      <hr>
+      <div class="row">
+        <div class="form-group">
+          <label> From </label>
+          <ngb-timepicker [(ngModel)]="fromTime" [ngModelOptions]="{standalone: true}"></ngb-timepicker>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label> To </label>
+            <ngb-timepicker [(ngModel)]="toTime" [ngModelOptions]="{standalone: true}"></ngb-timepicker>
+        </div>
+      </div>
+      <hr>
+      <div class="form-group">
+          <label for="description">Description</label>
+          <input
+            id="description"
+            name="description"
+            type="text"
+            ngModel
+            >
+        </div>
+        <hr>
+      <div class="row">
+        <button type="button" class="btn btn-secondary" (click)="onCancelEdit()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
