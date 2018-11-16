@@ -8,7 +8,7 @@ import { Subject } from "rxjs";
 export class TimeEntryService implements OnInit{
 
     timeEntries: TimeEntry[] = [
-        new TimeEntry({hours: 12, minutes: 0}, {hours: 16, minutes: 23}, 'testProject', 'descriptionText', new Date(), 4.25)
+        new TimeEntry({hours: 12, minutes: 0}, {hours: 16, minutes: 23}, 'K-123456', 'descriptionText', new Date(), 4.25)
     ];
     timeEntriesChanged = new Subject<TimeEntry[]>();
 

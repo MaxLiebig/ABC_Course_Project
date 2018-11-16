@@ -1,6 +1,7 @@
 import { Project } from "../models/project.model";
 import { Subject, Observable } from "rxjs";
 import { EventEmitter, Output } from "@angular/core";
+import { map, switchMap, catchError, mergeMap } from 'rxjs/operators';
 
 export class ProjectService {
     private subject = new Subject<number>();
@@ -16,6 +17,17 @@ export class ProjectService {
 
     getProjectList() {
         return this.projects;
+    }
+
+    getProjectByName(name: string){
+        let ret = null;
+        for(let project of this.projects){
+            if(project['name'] && project.name === name){
+                ret = project;
+                break;
+            }
+        }
+        return ret;
     }
     
     deleteProject(id: number) {
