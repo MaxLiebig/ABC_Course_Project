@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnDestroy } from '@angular/core';
 import { Project } from '../models/project.model';
 import { ProjectService } from '../service/project.service';
 import { Subscription } from "rxjs";
@@ -8,11 +8,12 @@ import { Subscription } from "rxjs";
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.css']
 })
-export class ProjectComponent implements OnInit {
+export class ProjectComponent implements OnInit, OnDestroy {
   projects: Project[] = [];
   projectID: number;
   isAdded = this.projectService.isAdded;
   getAddedSubscription: Subscription;
+  projectsChanged: Subscription;
 
   constructor(private projectService: ProjectService) { }
 
@@ -20,6 +21,9 @@ export class ProjectComponent implements OnInit {
     this.projects = this.projectService.getProjectList();
     this.getAddedSubscription = this.projectService.getChangedForm().subscribe((changedForm) => {
       this.isAdded = changedForm
+    });
+    this.projectsChanged = this.projectService.getProjectsChanged().subscribe((newProjects) => {
+      this.projects = newProjects;
     });
   }
 
@@ -37,4 +41,15 @@ export class ProjectComponent implements OnInit {
     this.projectService.deleteProject(index);
   }
 
+  onDataSave() {
+    this.projectService.sendProjects();
+  }
+
+  onDataGet() {
+    this.projectService.receiveProjects();
+  }
+
+  ngOnDestroy() {
+    this.getAddedSubscription.unsubscribe();
+  }
 }
