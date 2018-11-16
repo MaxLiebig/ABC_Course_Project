@@ -8,6 +8,7 @@ import { TimeEntry } from 'src/app/models/time-entry.model';
 import { FormatterService } from 'src/app/service/formatter.service';
 import { Subscription, Subject } from 'rxjs';
 import { Project } from 'src/app/models/project.model';
+import { ProjectService } from 'src/app/service/project.service';
 
 @Component({
   selector: 'app-entry-edit',
@@ -30,14 +31,16 @@ export class EntryEditComponent implements OnInit, OnDestroy {
   projects: Project[] = [];
   selectedProject: Project;
   
+  routeSubscription: Subscription;
 
   constructor(private route: ActivatedRoute,
               private timeEntryService: TimeEntryService,
               private formatter: FormatterService,
+              private projectService: ProjectService,
               private router: Router) { }
 
   ngOnInit() {
-    this.route.params
+    this.routeSubscription = this.route.params
       .subscribe(
         (params: Params) => {
           this.id = +params['id'];
@@ -47,11 +50,12 @@ export class EntryEditComponent implements OnInit, OnDestroy {
       );
   }
 
-  onSubmit(form: NgForm) {
-    console.log('submit time entry: ', form.value);
-    console.log("fromTime", this.fromTime);
-    console.log("toTime", this.toTime);
+  setSelectedProject(event){
+    debugger;
+    console.log("event", event);
+  }
 
+  onSubmit(form: NgForm) {
     let newFromTime:Time = {hours: this.fromTime.hour, minutes: this.fromTime.minute};
     let newToTime:Time = {hours: this.toTime.hour, minutes: this.toTime.minute};
 
@@ -89,6 +93,10 @@ export class EntryEditComponent implements OnInit, OnDestroy {
   }
 
   private initForm(){
+    this.projects = this.projectService.getProjectList();
+    if(this.projects && this.projects.length >= 1){
+      this.selectedProject = this.projects[1];
+    }
     if(this.editMode){
       const timeEntry = this.timeEntryService.getTimeEntry(this.id);
       this.fromTime = {hour: timeEntry.fromTime.hours, minute: timeEntry.fromTime.minutes, second: 0};
@@ -96,6 +104,11 @@ export class EntryEditComponent implements OnInit, OnDestroy {
       this.duration = timeEntry.duration;
       this.currentDateString = timeEntry.entryDate.getFullYear()+'-'+(timeEntry.entryDate.getMonth()+1)+"-"+timeEntry.entryDate.getDate();
       console.log("entry form",this.timeEntryForm);
+      let entryProject = this.projectService.getProjectByName(timeEntry['projectName']);
+      if(entryProject){
+        debugger;
+        this.selectedProject = entryProject;
+      }
       setTimeout( () => {
         this.timeEntryForm.setValue({
           description: timeEntry.description,
@@ -103,8 +116,6 @@ export class EntryEditComponent implements OnInit, OnDestroy {
         });
       }
       , 100);
-      //TODO add preselection to selected Project
-      //"entryDate": timeEntry.entryDate.toISOString(),
 
     }else{
       this.fromTime = {hour: 8, minute: 0, second: 0};
@@ -121,7 +132,7 @@ export class EntryEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-
+    this.routeSubscription.unsubscribe();
   }
 
 

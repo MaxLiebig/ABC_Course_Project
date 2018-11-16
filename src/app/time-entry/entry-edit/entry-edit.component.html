@@ -1,13 +1,18 @@
 <div class="row">
   <div class="col-md-12">
     <form (ngSubmit)="onSubmit(timeForm)" #timeForm="ngForm">
+      <div class="row">
+        <button type="button" class="btn btn-secondary" (click)="onCancel(timeForm)">Cancel</button>
+        <button type="submit" class="btn btn-primary" >Submit</button>
+      </div>
+      <hr>
       <div class="form-group">
         <label for="projectName">Project Name</label>
-        <!--<select id="projectName" class="form-control">
-          <option *ngFor="let project from projects; let i = index"
-            [value]="project" 
-          >{{project}}</option>
-        </select>-->
+        <select id="projectName" class="form-control" [ngModel]="selectedProject" [ngModelOptions]="{standalone: true}" (ngModelChange)="setSelectedProject($event)">
+          <option *ngFor="let project of projects; let i = index"
+            [value]="project"
+          >{{project.name}} -  {{project.description}}</option>
+        </select>
       </div>
       <hr>
       <div class="form-group">
@@ -25,7 +30,7 @@
       <div class="row">
         <div class="form-group">
           <label> From </label>
-          <ngb-timepicker [(ngModel)]="fromTime" [ngModelOptions]="{standalone: true}"></ngb-timepicker>
+          <ngb-timepicker [(ngModel)]="fromTime" [ngModelOptions]="{standalone: true}" (ngModelChange)="updateDuration($event)"></ngb-timepicker>
         </div>
         <hr>
         <div class="form-group">
@@ -56,10 +61,7 @@
         </div>
       </div>
       <hr>
-      <div class="row">
-        <button type="button" class="btn btn-secondary" (click)="onCancel(timeForm)">Cancel</button>
-        <button type="submit" class="btn btn-primary" >Submit</button>
-      </div>
+      
     </form>
   </div>
 </div>
