@@ -21,8 +21,4 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  reloadData(){
-    this.timeEntryService.loadAllTimeEntries();
-  }
-
 }

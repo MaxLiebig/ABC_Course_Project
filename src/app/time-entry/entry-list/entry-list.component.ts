@@ -30,6 +30,10 @@ export class EntryListComponent implements OnInit, OnDestroy{
         this.router.navigate(['new'], {relativeTo: this.route});
     }
 
+    reloadData(){
+        this.timeEntryService.loadAllTimeEntries();
+    }
+
     ngOnDestroy(){
         this.subscription.unsubscribe();
     }
